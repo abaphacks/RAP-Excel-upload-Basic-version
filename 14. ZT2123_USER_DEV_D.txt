@@ -1,0 +1,16 @@
+@EndUserText.label : 'user development objects'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #ALLOWED
+define table zt2123_userdev_d {
+
+  key client   : abap.clnt not null;
+  key empid    : abap.numc(8) not null;
+  key devid    : abap.char(30) not null;
+  key serialno : abap.int4 not null;
+  objecttype   : abap.char(50) not null;
+  objectname   : abap.char(80);
+  "%admin"     : include sych_bdl_draft_admin_inc;
+
+}

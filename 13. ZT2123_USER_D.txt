@@ -1,0 +1,26 @@
+@EndUserText.label : 'user draft table'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #ALLOWED
+define table zt2123_user_d {
+
+  key client         : abap.clnt not null;
+  key empid          : abap.numc(8) not null;
+  key devid          : abap.char(30) not null;
+  devdescription     : abap.char(100);
+  attachment         : abap.rawstring(0);
+  mimetype           : abap.char(128);
+  filename           : abap.char(128);
+  filestatus         : abap.char(50);
+  templatestatus     : abap.char(50);
+  criticality        : abap.int1;
+  templatecrticality : abap.int1;
+  localcreatedby     : abp_creation_user;
+  localcreatedat     : abp_creation_tstmpl;
+  locallastchangedby : abp_locinst_lastchange_user;
+  locallastchangedat : abp_locinst_lastchange_tstmpl;
+  lastchangedat      : abp_lastchange_tstmpl;
+  "%admin"           : include sych_bdl_draft_admin_inc;
+
+}

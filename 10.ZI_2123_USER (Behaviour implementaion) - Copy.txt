@@ -1,0 +1,80 @@
+managed implementation in class zbp_i_2123_user unique;
+strict ( 2 );
+with draft;
+define behavior for zi_2123_user alias User
+persistent table zt2123_user
+draft table zt2123_user_d
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LocalLastChangedAt
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly : update ) EmpId, DevId;
+  field ( readonly ) LocalCreatedBy, LocalLastChangedAt;
+  field ( mandatory : create ) EmpId, DevId;
+  association _UserDev { create ( features : instance ); with draft; }
+  // Logic to read excel data into associated entity ZI_2123_User_Dev
+  action ( features : instance ) uploadExcelData result [1] $self;
+  // Logic to download excel template
+   action ( features : instance ) DownloadExcel result [1] $self;
+  // Change File Status During Creation of new record
+  determination FillFileStatus on modify { field EmpId, DevId; }
+  // Change File Status When file is selected
+  determination FillSelectedStatus on modify { field Attachment; }
+  // copy existing row
+//  factory action copyRecord [1]; // by default its instance bound
+  // for reloading ui after data has been uploaded
+  side effects
+  {
+    field Attachment affects field FileStatus;
+    action uploadExcelData affects $self, field _UserDev.*;
+  }
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zt2123_user
+    {
+      EmpId              = emp_id;
+      DevId              = dev_id;
+      DevDescription     = dev_description;
+      Filename           = filename;
+      Attachment         = attachment;
+      Mimetype           = mimetype;
+      FileStatus         = file_status;
+      TemplateStatus     = template_status;
+      LocalCreatedBy     = local_created_by;
+      LocalCreatedAt     = local_created_at;
+      LastChangedAt      = last_changed_at;
+      LocalLastChangedAt = local_last_changed_at;
+      LocalLastChangedBy = local_last_changed_by;
+    }
+}
+
+define behavior for ZI_2123_user_dev alias UserDev
+persistent table zt2123_user_dev
+draft table zt2123_userdev_d
+lock dependent by _User
+authorization dependent by _User
+//etag master
+{
+  update;
+  delete;
+  field ( readonly ) EmpId, DevId, SerialNo;
+  association _User { with draft; }
+
+
+  mapping for zt2123_user_dev
+    {
+      EmpId      = emp_id;
+      DevId      = dev_id;
+      SerialNo   = serial_no;
+      ObjectType = object_type;
+      ObjectName = object_name;
+    }
+}

@@ -1,0 +1,23 @@
+@EndUserText.label : 'User Data'
+@AbapCatalog.enhancement.category : #EXTENSIBLE_ANY
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #ALLOWED
+define table zt2123_user {
+
+  key client            : abap.clnt not null;
+  key emp_id            : abap.numc(8) not null;
+  key dev_id            : abap.char(30) not null;
+  dev_description       : abap.char(100);
+  attachment            : abap.rawstring(0);
+  mimetype              : abap.char(128);
+  filename              : abap.char(128);
+  file_status           : abap.char(50);
+  template_status       : abap.char(50);
+  local_created_by      : abp_creation_user;
+  local_created_at      : abp_creation_tstmpl;
+  local_last_changed_by : abp_locinst_lastchange_user;
+  local_last_changed_at : abp_locinst_lastchange_tstmpl;
+  last_changed_at       : abp_lastchange_tstmpl;
+
+}

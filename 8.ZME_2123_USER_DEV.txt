@@ -1,0 +1,46 @@
+@Metadata.layer: #CORE
+@UI.headerInfo : {
+ typeName: 'Developed Object',
+ typeNamePlural: 'Developed Objects',
+ title: {
+        type: #STANDARD,
+        label: 'Development Id',
+        value: 'DevId' // this will display as Header title
+    },
+ description : { value: 'ObjectName' } //this will be dispalyed below header title
+}
+annotate view ZC_2123_USER_DEV with
+{
+
+  @UI.facet: [
+   {
+   purpose: #STANDARD,
+   type: #IDENTIFICATION_REFERENCE ,
+   label: 'Developed Objects',
+   position: 10
+   }]
+
+  @UI.hidden: true
+  @UI:{
+   identification: [{ position: 10 , label: 'Employee Id'}]
+  }
+  EmpId;
+  @UI:{lineItem: [{position: 10,importance: #HIGH , label: 'Development Id' } ],
+  identification: [{ position: 20 , label: 'Development Id'}]
+    }
+  DevId;
+  @UI:{lineItem: [{position: 1,importance: #HIGH , label: 'Serial No'} ]}
+  SerialNo;
+  @UI:{lineItem: [{position: 20,importance: #HIGH , label: 'Object Type'} ],
+  identification: [{ position: 30 , label: 'Object Type'}]
+    }
+  ObjectType;
+  @UI:{lineItem: [{position: 30,importance: #HIGH , label: 'Object Name'} ],
+  identification: [{ position: 40 , label: 'Object Name'}]
+    }
+  ObjectName;
+  @UI.hidden: true
+  _User;
+
+
+}
