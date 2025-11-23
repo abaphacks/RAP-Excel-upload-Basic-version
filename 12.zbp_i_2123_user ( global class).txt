@@ -35,7 +35,7 @@ CLASS lhc_User DEFINITION INHERITING FROM cl_abap_behavior_handler.
     METHODS read_excel IMPORTING im_get_template TYPE abap_boolean
                                  im_get_header   TYPE abap_boolean OPTIONAL
                        EXPORTING et_excel_data   TYPE ANY TABLE
-                       CHANGING  ch_attachment   TYPE zt2123_excel-attachment .
+                       CHANGING  ch_attachment   TYPE zt2123_user-attachment .
 
 ENDCLASS.
 
@@ -463,5 +463,6 @@ CLASS lhc_User IMPLEMENTATION.
     ENDIF.
 
   ENDMETHOD.
+
 
 ENDCLASS.
